@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="id" style="scroll-behavior: smooth;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XDSGN — Sosmed Bisnis Profesional</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: #fff5f7;
+    color: #1a1a2e;
+    overflow-x: hidden;
+  }
+
+  .hero {
+    background: linear-gradient(160deg, #fff0f4 0%, #ffe4ed 50%, #ffd6e7 100%);
+    padding: 40px max(24px, calc((100vw - 1024px) / 2)) 48px;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; width: 280px; height: 280px;
+    background: radial-gradient(circle, #ffb3ce44 0%, transparent 70%);
+    top: -80px; right: -80px; border-radius: 50%;
+  }
+  .brand-logo-wrapper {
+    display: inline-block;
+    margin-bottom: 24px;
+  }
+  .brand-logo {
+    height: 36px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1); 
+  }
+  .hero h1 { font-size: 36px; font-weight: 800; line-height: 1.15; color: #1a1a2e; margin-bottom: 8px; }
+  .hero h1 em { font-style: normal; color: #e83e6c; }
+  .hero-sub { font-size: 16px; line-height: 1.6; color: #4a4a6a; margin-bottom: 28px; max-width: 360px; }
+  .hero-sub strong { color: #e83e6c; font-weight: 700; white-space: nowrap; }
+
+  .cta-btn {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    background: #25D366; color: #fff; font-size: 16px; font-weight: 700;
+    padding: 16px 28px; border-radius: 50px; text-decoration: none;
+    box-shadow: 0 8px 24px #25D36640; transition: transform 0.2s, box-shadow 0.2s;
+    width: 100%; max-width: 360px; cursor: pointer;
+  }
+  .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px #25D36660; }
+  
+  .cta-btn-scroll {
+    background: #1a1a2e;
+    box-shadow: 0 8px 24px rgba(26, 26, 46, 0.2);
+  }
+  .cta-btn-scroll:hover { box-shadow: 0 12px 32px rgba(26, 26, 46, 0.3); }
+
+  .cta-note { font-size: 12px; color: #888; margin-top: 10px; text-align: center; }
+
+  .section { padding: 44px max(24px, calc((100vw - 1024px) / 2)); }
+  .section-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #e83e6c; margin-bottom: 10px; display: block; text-align: center;}
+  .section h2 { font-size: 24px; font-weight: 800; line-height: 1.3; color: #1a1a2e; margin-bottom: 20px; text-align: center;}
+  .section-subtitle { text-align: center; font-size: 14px; color: #666; margin-bottom: 24px; margin-top: -10px; }
+
+  .pain-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .pain-list li { background: #fff; border-radius: 14px; padding: 14px 16px; font-size: 15px; color: #3a3a5c; border-left: 4px solid #ffb3ce; line-height: 1.5; }
+  .pain-list li::before { content: '😔 '; }
+
+  .solution-bg { background: linear-gradient(160deg, #1a1a2e 0%, #2d1b4e 100%); padding: 44px max(24px, calc((100vw - 1024px) / 2)); }
+  .solution-bg .section-label { color: #ffb3ce; text-align: left; }
+  .solution-bg h2 { color: #fff; margin-bottom: 20px; font-size: 24px; font-weight: 800; line-height: 1.3; text-align: left;}
+  .benefit-cards { display: flex; flex-direction: column; gap: 14px; margin-top: 4px; }
+  .benefit-card { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; padding: 18px 16px; display: flex; align-items: flex-start; gap: 14px; }
+  .benefit-icon { width: 42px; height: 42px; background: linear-gradient(135deg, #e83e6c, #ff6b9d); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .benefit-card h3 { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .benefit-card p { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.5; }
+
+  /* GAYA CSS UNTUK SLIDER BEFORE-AFTER */
+  .compare-grid { display: grid; grid-template-columns: 1fr; gap: 32px; margin-top: 32px; }
+  .compare-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4; 
+    background: #eaeaea; 
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+  }
+  .compare-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+  .compare-img img { width: 100%; height: 100%; object-fit: cover; display: block; user-select: none; }
+  .before-img { clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%); } 
+  
+  .slider {
+    position: absolute;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    outline: none;
+    margin: 0;
+    top: 0;
+    left: 0;
+    cursor: ew-resize; 
+    z-index: 10;
+  }
+  .slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 40px; height: 100%; cursor: ew-resize; }
+  .slider::-moz-range-thumb { width: 40px; height: 100%; cursor: ew-resize; background: transparent; border: none; }
+  
+  .slider-button {
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 50%; 
+    width: 4px;
+    background: #fff;
+    transform: translateX(-50%);
+    pointer-events: none; 
+    z-index: 5;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  }
+  .slider-button::after {
+    content: '↔'; 
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 36px; height: 36px;
+    background: #e83e6c;
+    color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: bold; border: 3px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  }
+  .compare-badge { position: absolute; top: 16px; padding: 6px 14px; font-size: 11px; font-weight: 800; border-radius: 20px; color: #fff; z-index: 4; text-transform: uppercase; letter-spacing: 1px;}
+  .badge-before { left: 16px; background: rgba(26,26,46,0.7); backdrop-filter: blur(4px); }
+  .badge-after { right: 16px; background: linear-gradient(135deg, #e83e6c, #ff6b9d); box-shadow: 0 4px 10px rgba(232, 62, 108, 0.4);}
+
+
+  .how-steps { display: flex; flex-direction: column; gap: 0; margin-top: 8px; }
+  .step { display: flex; gap: 16px; align-items: flex-start; }
+  .step-line { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+  .step-num { width: 36px; height: 36px; background: #ffd6e7; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; color: #e83e6c; flex-shrink: 0; }
+  .step-connector { width: 2px; height: 32px; background: #ffd6e7; margin: 4px 0; }
+  .step:last-child .step-connector { display: none; }
+  .step-content { padding-top: 6px; padding-bottom: 20px; }
+  .step-content h3 { font-size: 15px; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+  .step-content p { font-size: 13px; color: #666; line-height: 1.5; }
+
+  /* GAYA CSS UNTUK PORTOFOLIO SLIDER */
+  .portfolio-bg { background: #fff5f7; padding: 44px max(24px, calc((100vw - 1024px) / 2)); overflow: hidden;}
+  .portfolio-slider { 
+    display: flex; 
+    gap: 16px; 
+    margin-top: 24px; 
+    padding-bottom: 24px; 
+    overflow-x: auto; 
+    scroll-snap-type: x mandatory; 
+    -ms-overflow-style: none;  
+    scrollbar-width: none;  
+  }
+  .portfolio-slider::-webkit-scrollbar { display: none; }
+  
+  .portfolio-item { 
+    flex: 0 0 calc(60% - 16px); 
+    aspect-ratio: 4 / 5; 
+    border-radius: 16px; 
+    overflow: hidden; 
+    background: #eaeaea; 
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    scroll-snap-align: center;
+  }
+  .portfolio-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; display: block; pointer-events: none;}
+  .portfolio-item:hover img { transform: scale(1.05); }
+
+  .portfolio-wrapper { position: relative; margin-top: 24px; }
+  .portfolio-wrapper::before, .portfolio-wrapper::after {
+    content: ''; position: absolute; top: 0; bottom: 24px; width: 80px; z-index: 2; pointer-events: none;
+  }
+  .portfolio-wrapper::before { left: 0; background: linear-gradient(to right, #fff5f7 10%, transparent); }
+  .portfolio-wrapper::after { right: 0; background: linear-gradient(to left, #fff5f7 10%, transparent); }
+  
+  .slider-nav-btn {
+    position: absolute; top: calc(50% - 12px); transform: translateY(-50%);
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(4px);
+    border: 1px solid rgba(255,255,255,0.7); color: #e83e6c; 
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; z-index: 10; box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    transition: all 0.2s ease; outline: none;
+  }
+  .slider-nav-btn:hover { background: #fff; transform: translateY(-50%) scale(1.1); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+  .slider-nav-btn.prev { left: 16px; }
+  .slider-nav-btn.next { right: 16px; }
+  @media (max-width: 767px) {
+    .slider-nav-btn { display: none; }
+    .portfolio-wrapper::before, .portfolio-wrapper::after { width: 40px; }
+  }
+
+  /* PRICING GLASSMORPHISM */
+  .pricing-wrapper {
+    padding: 60px max(24px, calc((100vw - 1024px) / 2));
+    background: linear-gradient(160deg, #e3cffc 0%, #ffc5d9 100%);
+    text-align: center;
+  }
+  .pricing-header { margin-bottom: 24px; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .pkg-brand {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    font-size: 28px; font-weight: 800; color: #fff;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .pkg-price-badge {
+    display: inline-block;
+    border: 2px solid #2d1b4e;
+    border-radius: 50px;
+    padding: 12px 32px;
+    font-size: 24px; font-weight: 800; color: #2d1b4e;
+  }
+  .pkg-price-badge span { font-size: 16px; font-weight: 600; }
+  .pkg-tagline { font-size: 15px; color: #4a3a6a; font-style: italic; margin-top: -4px;}
+  
+  .pricing-box {
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.7);
+    border-radius: 32px;
+    padding: 40px 20px;
+    max-width: 850px;
+    margin: 0 auto;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+  }
+  .pricing-box h3 {
+    font-size: 28px; font-weight: 800; color: #1a1a2e;
+    margin-bottom: 30px; text-align: center;
+  }
+  .pkg-features-grid {
+    display: grid; grid-template-columns: 1fr; gap: 16px;
+    text-align: left; margin-bottom: 32px; list-style: none;
+  }
+  .pkg-features-grid li {
+    display: flex; align-items: flex-start; gap: 12px;
+    font-size: 14px; font-weight: 600; color: #2d1b4e; line-height: 1.4;
+  }
+  .pkg-features-grid li::before {
+    content: '✓';
+    background: #0a84ff; color: #fff;
+    width: 20px; height: 20px; border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 800; flex-shrink: 0; margin-top: 2px;
+  }
+  .bonus-item {
+    background: rgba(255, 179, 206, 0.25);
+    border: 1px dashed #e83e6c;
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 8px !important;
+  }
+  .bonus-item::before {
+    content: none !important;
+  }
+  .bonus-badge {
+    background: linear-gradient(135deg, #e83e6c, #ff6b9d);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .bonus-text {
+    font-size: 14px;
+    font-weight: 800;
+    color: #e83e6c;
+  }
+  .scarcity-text {
+    font-size: 12px; color: #e83e6c; font-style: italic;
+    margin-bottom: 24px; font-weight: 600; text-align: center;
+  }
+
+  .final-cta { padding: 48px max(24px, calc((100vw - 1024px) / 2)) 60px; text-align: center; }
+  .final-cta h2 { font-size: 26px; font-weight: 800; color: #1a1a2e; line-height: 1.3; margin-bottom: 12px; }
+  .final-cta h2 em { font-style: normal; color: #e83e6c; }
+  .final-cta p { font-size: 15px; color: #666; margin-bottom: 28px; line-height: 1.6; }
+  .final-cta .cta-btn { margin-left: auto; margin-right: auto; margin-bottom: 10px; }
+  footer { background: #1a1a2e; padding: 20px max(24px, calc((100vw - 1024px) / 2)); text-align: center; }
+  footer p { font-size: 12px; color: rgba(255,255,255,0.4); }
+  footer strong { color: #ff6b9d; }
+
+  @media (min-width: 768px) {
+    .hero { padding-top: 80px; padding-bottom: 80px; text-align: center; }
+    .hero::before { width: 400px; height: 400px; top: -100px; right: -100px; }
+    .hero h1 { font-size: 52px; }
+    .hero-sub { font-size: 18px; max-width: 600px; margin: 0 auto 36px; }
+    .cta-btn { margin-left: auto; margin-right: auto; }
+
+    .section-label { text-align: center; }
+    .solution-bg .section-label { text-align: center; }
+    .solution-bg h2 { text-align: center; font-size: 32px; margin-bottom: 32px; }
+
+    .pain-list { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+    .pain-list li { flex: 0 0 calc(50% - 12px); }
+
+    .benefit-cards { flex-direction: row; flex-wrap: wrap; gap: 24px; }
+    .benefit-card { flex: 0 0 calc(50% - 12px); padding: 24px; }
+
+    .compare-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+    .how-steps { flex-direction: row; gap: 24px; justify-content: space-between; }
+    .step { flex: 1; flex-direction: column; align-items: center; text-align: center; }
+    .step-line { margin-bottom: 16px; }
+    .step-connector { display: none; }
+    .step-content { padding: 0; }
+
+    .portfolio-slider { gap: 20px; }
+    .portfolio-item { 
+      flex: 0 0 calc(25% - 15px); 
+      scroll-snap-align: start;
+    }
+
+    .pkg-features-grid { grid-template-columns: 1fr 1fr; gap: 20px; padding: 0 24px; }
+    .bonus-item { grid-column: 1 / -1; flex-direction: row; align-items: center !important; justify-content: space-between; }
+    .pricing-box { padding: 48px; }
+
+    .final-cta { padding-top: 80px; padding-bottom: 80px; }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="brand-logo-wrapper">
+    <img src="images/logo xdsgn aa.png" alt="XDSGN Logo" class="brand-logo">
+  </div>
+  <h1>Sosmed Bisnis Lo<br><em>Sepi?</em></h1>
+  <p class="hero-sub">
+    Bukan salah produknya.<br>
+    Satu hal yang membedakan bisnis laris dengan yang tidak, <strong>Tampilan yang profesional.</strong>
+  </p>
+  
+  <a href="#paket-xbase" class="cta-btn cta-btn-scroll">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+    Lihat Solusi Kami
+  </a>
+</section>
+
+<section class="section" style="background:#fff;">
+  <p class="section-label">Kenali Masalah Anda</p>
+  <h2>Apakah Anda sering merasakan ini?</h2>
+  <ul class="pain-list">
+    <li>Capek mikirin ide konten tiap hari, tapi <em>engagement</em> mentok di situ-situ saja.</li>
+    <li>Malu melihat kompetitor yang visualnya lebih pro, padahal kualitas produk Anda jauh lebih bagus.</li>
+    <li>Waktu habis untuk mengurus desain yang seadanya, padahal Anda harusnya fokus mengurus strategi bisnis.</li>
+    <li>Feed Instagram terlihat acak-acakan sehingga calon pembeli ragu untuk transfer.</li>
+  </ul>
+</section>
+
+<section class="solution-bg">
+  <p class="section-label">Solusinya ada di sini</p>
+  <h2>Studio XDSGN siap handle semua visual sosmed Anda</h2>
+  <div class="benefit-cards">
+    <div class="benefit-card">
+      <div class="benefit-icon">📸</div>
+      <div>
+        <h3>Konten Visual Kelas Agensi</h3>
+        <p>Feed, story, reels, didesain khusus agar audiens berhenti scroll dan tertarik masuk ke profil Anda.</p>
+      </div>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">🎨</div>
+      <div>
+        <h3>Branding Konsisten</h3>
+        <p>Satu identitas visual (warna, font, gaya) yang membuat bisnis Anda langsung dikenali dan terasa terpercaya.</p>
+      </div>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">📅</div>
+      <div>
+        <h3>Bebas Pusing Mikir Konten</h3>
+        <p>Anda fokus urus penjualan, kami yang urus konten. Jadwal posting beres setiap bulannya.</p>
+      </div>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">🚀</div>
+      <div>
+        <h3>Tampil Lebih Meyakinkan</h3>
+        <p>Visual yang premium membuat calon pelanggan lebih yakin untuk membeli. Ubah <em>followers</em> jadi <em>buyers</em>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:#fff;">
+  <p class="section-label">Lihat Bukti Nyatanya</p>
+  <h2>Perubahan Visual yang Meningkatkan Penjualan</h2>
+  <p class="section-subtitle">Geser panah di tengah untuk melihat transformasi feed klien kami.</p>
+  
+  <div class="compare-grid">
+    <!-- Slider 1 -->
+    <div class="compare-container">
+      <div class="compare-img after-img">
+        <img src="images/after-sample-1.jpg" alt="Desain Sesudah (After) oleh XDSGN" onerror="this.src='https://placehold.co/600x800/ffe4ed/e83e6c?text=AFTER+1\n(XDSGN)'">
+        <span class="compare-badge badge-after">AFTER</span>
+      </div>
+      <div class="compare-img before-img">
+        <img src="images/before-sample-1.jpg" alt="Desain Sebelum (Before)" onerror="this.src='https://placehold.co/600x800/e0e0e0/666666?text=BEFORE+1\n(Lama)'">
+        <span class="compare-badge badge-before">BEFORE</span>
+      </div>
+      <input type="range" min="0" max="100" value="50" class="slider" aria-label="Geser untuk membandingkan">
+      <div class="slider-button"></div>
+    </div>
+
+    <!-- Slider 2 -->
+    <div class="compare-container">
+      <div class="compare-img after-img">
+        <img src="images/after-sample-2.jpg" alt="Desain Sesudah (After) oleh XDSGN" onerror="this.src='https://placehold.co/600x800/e3cffc/2d1b4e?text=AFTER+2\n(XDSGN)'">
+        <span class="compare-badge badge-after">AFTER</span>
+      </div>
+      <div class="compare-img before-img">
+        <img src="images/before-sample-2.jpg" alt="Desain Sebelum (Before)" onerror="this.src='https://placehold.co/600x800/d0d0d0/555555?text=BEFORE+2\n(Lama)'">
+        <span class="compare-badge badge-before">BEFORE</span>
+      </div>
+      <input type="range" min="0" max="100" value="50" class="slider" aria-label="Geser untuk membandingkan">
+      <div class="slider-button"></div>
+    </div>
+
+    <!-- Slider 3 -->
+    <div class="compare-container">
+      <div class="compare-img after-img">
+        <img src="images/after-sample-3.jpg" alt="Desain Sesudah (After) oleh XDSGN" onerror="this.src='https://placehold.co/600x800/ffc5d9/e83e6c?text=AFTER+3\n(XDSGN)'">
+        <span class="compare-badge badge-after">AFTER</span>
+      </div>
+      <div class="compare-img before-img">
+        <img src="images/before-sample-3.jpg" alt="Desain Sebelum (Before)" onerror="this.src='https://placehold.co/600x800/c0c0c0/444444?text=BEFORE+3\n(Lama)'">
+        <span class="compare-badge badge-before">BEFORE</span>
+      </div>
+      <input type="range" min="0" max="100" value="50" class="slider" aria-label="Geser untuk membandingkan">
+      <div class="slider-button"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:#fff5f7;">
+  <p class="section-label">Proses yang transparan</p>
+  <h2>Memulainya cukup dengan 3 langkah</h2>
+  <div class="how-steps">
+    <div class="step">
+      <div class="step-line">
+        <div class="step-num">1</div>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-content">
+        <h3>Hubungi kami via WhatsApp</h3>
+        <p>Ceritakan tentang bisnis Anda, produknya apa, siapa target pasarnya. Sesi ngobrol ini 100% gratis.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-line">
+        <div class="step-num">2</div>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-content">
+        <h3>Analisis & Rekomendasi</h3>
+        <p>Tim ahli kami akan me-review kondisi sosmed Anda saat ini dan memberikan saran perbaikan visual yang paling tepat.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-line">
+        <div class="step-num">3</div>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-content">
+        <h3>Sosmed Anda Langsung Naik Kelas</h3>
+        <p>Kami mulai proses produksi kreatif. Anda cukup <em>approve</em>, dan konten siap dipublikasikan secara konsisten.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="portfolio-bg">
+  <p class="section-label">Karya Kami</p>
+  <h2>Portofolio Studio XDSGN</h2>
+  
+  <div class="portfolio-wrapper">
+    <button class="slider-nav-btn prev" aria-label="Geser Kiri">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+
+    <div class="portfolio-slider" style="margin-top: 0;"> 
+      <div class="portfolio-item"><img src="images/portfolio-1.jpg" alt="Portofolio XDSGN 1" onerror="this.src='https://placehold.co/400x500/ffd6e7/e83e6c?text=Desain+1'"></div>
+      <div class="portfolio-item"><img src="images/portfolio-2.jpg" alt="Portofolio XDSGN 2" onerror="this.src='https://placehold.co/400x500/e3cffc/2d1b4e?text=Desain+2'"></div>
+      <div class="portfolio-item"><img src="images/portfolio-3.jpg" alt="Portofolio XDSGN 3" onerror="this.src='https://placehold.co/400x500/ffb3ce/fff?text=Desain+3'"></div>
+      <div class="portfolio-item"><img src="images/portfolio-4.jpg" alt="Portofolio XDSGN 4" onerror="this.src='https://placehold.co/400x500/2d1b4e/fff?text=Desain+4'"></div>
+      <div class="portfolio-item"><img src="images/portfolio-5.jpg" alt="Portofolio XDSGN 5" onerror="this.src='https://placehold.co/400x500/ffc5d9/e83e6c?text=Desain+5'"></div>
+      <div class="portfolio-item"><img src="images/portfolio-6.jpg" alt="Portofolio XDSGN 6" onerror="this.src='https://placehold.co/400x500/ffd6e7/2d1b4e?text=Desain+6'"></div>
+      <div class="portfolio-item"><img src="images/portfolio-7.jpg" alt="Portofolio XDSGN 7" onerror="this.src='https://placehold.co/400x500/e3cffc/e83e6c?text=Desain+7'"></div>
+    </div>
+
+    <button class="slider-nav-btn next" aria-label="Geser Kanan">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+  </div>
+</section>
+
+<section id="paket-xbase" class="pricing-wrapper">
+  <div class="pricing-header">
+    <div class="pkg-brand">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="url(#starGrad)"><defs><linearGradient id="starGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fff"/><stop offset="100%" stop-color="#ffd6e7"/></linearGradient></defs><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+      xBase
+    </div>
+    <div class="pkg-price-badge">Rp 3.499.000 <span>/bulan</span></div>
+    <p class="pkg-tagline">"Mulai tampil profesional"</p>
+  </div>
+
+  <div class="pricing-box">
+    <h3>25 Design / bulan</h3>
+    
+    <ul class="pkg-features-grid">
+      <li>2 UGC Carousels (3 images per carousel)</li>
+      <li>Caption Writing</li>
+      <li>Virtual Shot (3 images)</li>
+      <li>Hashtag Research</li>
+      <li>Product Showcase (Product + AI Model, 3 images)</li>
+      <li>Manage Posting & Scheduling</li>
+      <li>3 Product Knowledge (4 images each)</li>
+      <li>Content Calendar</li>
+      <li>2 CTA - Promo & Discount (1 image each)</li>
+      <li>25 Visual Assets</li>
+      <li class="bonus-item">
+        <span class="bonus-badge">🎁 Bonus Eksklusif Bulan Ini</span>
+        <span class="bonus-text">2 Video Product Showcase (7-10 Detik)</span>
+      </li>
+    </ul>
+
+    <p class="scarcity-text">🔥 Slot klien baru bulan ini sangat terbatas untuk menjaga standar kualitas desain kami.</p>
+    
+    <a href="https://wa.me/6285187287500?text=Halo%20tim%20XDSGN%2C%20saya%20tertarik%20dengan%20paket%20xBase.%20Bisa%20ceritain%20lebih%20lanjut%3F" class="cta-btn" style="margin: 0 auto;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.858L.054 23.25a.75.75 0 0 0 .918.966l5.521-1.447A11.95 11.95 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.706 9.706 0 0 1-4.95-1.35l-.354-.211-3.672.963.981-3.588-.231-.368A9.702 9.702 0 0 1 2.25 12c0-5.376 4.374-9.75 9.75-9.75s9.75 4.374 9.75 9.75-4.374 9.75-9.75 9.75z"/></svg>
+      Tanya-tanya via WA dulu
+    </a>
+  </div>
+</section>
+
+<section class="final-cta">
+  <h2>Masih Ragu?<br><em>Ngobrol dulu aja.</em></h2>
+  <p>Ceritakan saja kendala bisnis Anda dulu, mari kita lihat apakah XDSGN adalah solusi yang tepat.</p>
+  <a href="https://wa.me/6285187287500?text=Halo%20tim%20XDSGN%2C%20saya%20mau%20konsultasi%20awal%20dulu%20soal%20sosmed%20bisnis%20saya" class="cta-btn" style="max-width:100%; margin-bottom: 10px;">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.858L.054 23.25a.75.75 0 0 0 .918.966l5.521-1.447A11.95 11.95 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.706 9.706 0 0 1-4.95-1.35l-.354-.211-3.672.963.981-3.588-.231-.368A9.702 9.702 0 0 1 2.25 12c0-5.376 4.374-9.75 9.75-9.75s9.75 4.374 9.75 9.75-4.374 9.75-9.75 9.75z"/></svg>
+    Konsultasi Sekarang (Gratis)
+  </a>
+  <p class="cta-note">Biasanya tim kami membalas dalam 1 jam kerja</p>
+</section>
+
+<footer>
+  <p><strong>Studio XDSGN</strong>, an IMAJIK Group<br>© 2026 Hak cipta dilindungi.</p>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const compareContainers = document.querySelectorAll('.compare-container');
+
+    compareContainers.forEach(container => {
+      const slider = container.querySelector('.slider');
+      const beforeImg = container.querySelector('.before-img');
+      const sliderBtn = container.querySelector('.slider-button');
+
+      slider.addEventListener('input', function(e) {
+        const sliderValue = e.target.value;
+        beforeImg.style.clipPath = `polygon(0 0, ${sliderValue}% 0, ${sliderValue}% 100%, 0 100%)`;
+        sliderBtn.style.left = `${sliderValue}%`;
+      });
+    });
+
+    const portfolioSlider = document.querySelector('.portfolio-slider');
+    const btnPrev = document.querySelector('.slider-nav-btn.prev');
+    const btnNext = document.querySelector('.slider-nav-btn.next');
+
+    if (portfolioSlider && btnPrev && btnNext) {
+      const scrollAmount = () => portfolioSlider.querySelector('.portfolio-item').offsetWidth * 2;
+
+      btnNext.addEventListener('click', () => {
+        portfolioSlider.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+      });
+
+      btnPrev.addEventListener('click', () => {
+        portfolioSlider.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+      });
+    }
+  });
+
+  // PROTEKSI GAMBAR (Anti-Maling)
+  document.addEventListener('contextmenu', function(e) {
+    if(e.target.tagName === 'IMG') {
+      e.preventDefault();
+    }
+  });
+  document.addEventListener('dragstart', function(e) {
+    if(e.target.tagName === 'IMG') {
+      e.preventDefault();
+    }
+  });
+</script>
+
+</body>
+</html>
